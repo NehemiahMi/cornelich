@@ -39,15 +39,18 @@ std::string cycle_formatter::date_from_cycle(std::int64_t cycle) const
 {
     // TODO: Is it worth it...?
     auto hash = std::hash<std::int64_t>()(cycle) % (CACHE_SIZE - 1);
-    auto cached = std::atomic_load(&m_cache[hash]);
+    // auto cached = std::atomic_load(&m_cache[hash]);
+    auto cached = boost::atomic_load(&m_cache[hash]);
     if(cached && cached->m_cycle == cycle)
     {
         // Cache hit - return the string
         return cached->m_data;
     }
     // Cache miss -> evaluate and cache the string
-    auto node = std::make_shared<node_t>(cycle, date_from_cycle_impl(cycle));
-    std::atomic_store(&m_cache[hash], node);
+    // auto node = std::make_shared<node_t>(cycle, date_from_cycle_impl(cycle));
+    // std::atomic_store(&m_cache[hash], node);
+    boost::shared_ptr<node_t> node(new node_t(cycle, date_from_cycle_impl(cycle)));
+    boost::atomic_store(&m_cache[hash], node);
     return node->m_data;
 }
 

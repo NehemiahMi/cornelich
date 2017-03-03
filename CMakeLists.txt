@@ -59,7 +59,7 @@ ELSE()
         "-Wfloat-equal"
         "-Wno-missing-field-initializers"
         "-Wno-missing-braces"
-        "-Wshadow"
+        # "-Wshadow"
         "-Wunreachable-code"
         "-Wredundant-decls"
         "-Wpointer-arith"

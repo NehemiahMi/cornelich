@@ -22,6 +22,8 @@ limitations under the License.
 
 #include <array>
 #include <memory>
+#include <boost/shared_ptr.hpp>
+#include <boost/array.hpp>
 
 namespace cornelich
 {
@@ -47,7 +49,8 @@ private:
         const std::int64_t m_cycle;
         const std::string m_data;
     };
-    mutable std::array<std::shared_ptr<node_t>, CACHE_SIZE> m_cache;
+    // mutable std::array<std::shared_ptr<node_t>, CACHE_SIZE> m_cache;
+    mutable boost::array<boost::shared_ptr<node_t>, CACHE_SIZE> m_cache;
 };
 
 struct cycle_formatter_yyyymmdd : public cycle_formatter
